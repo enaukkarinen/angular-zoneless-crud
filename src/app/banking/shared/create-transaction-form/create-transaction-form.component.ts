@@ -9,12 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { combineLatest, filter, map, shareReplay, startWith } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Store } from '@ngrx/store';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
-import { selectAccounts } from '@app/banking/core/store/accounts/accounts.selectors';
 import { AccountSelectFieldComponent } from '../account-select-field/account-select-field.component';
 import { AmountInputFieldComponent } from '../amount-input-field/amount-input-field.component';
+import { AccountsStore } from '@app/banking/core/store/accounts.store';
 
 interface CreateTransactionForm {
   transaction_type: FormControl<string>;
@@ -44,7 +43,7 @@ interface CreateTransactionForm {
 })
 export class CreateTransactionFormComponent implements OnInit {
   dialog = inject(MatDialogRef);
-  store = inject(Store);
+  store = inject(AccountsStore);
 
   transactionTypes = [
     { value: 'DEPOSIT', label: 'Deposit' },
@@ -78,11 +77,11 @@ export class CreateTransactionFormComponent implements OnInit {
   targetAccountField = this.form.controls.target_bank_account_id;
   descriptionField = this.form.controls.description;
 
-  accounts$ = this.store.select(selectAccounts);
+  accounts = this.store.accounts;
 
   // Finds the right balance based on selected source account.
   balance$ = combineLatest([
-    this.accounts$,
+    toObservable(this.accounts),
     this.sourceAccountField.valueChanges.pipe(startWith(this.sourceAccountField.value)),
   ]).pipe(
     map(([accounts, sourceAccountId]) => {

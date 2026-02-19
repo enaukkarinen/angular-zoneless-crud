@@ -1,21 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-
-import { initialAccountsState } from '@app/banking/core/store/accounts/accounts.reducer';
-import { initialTransactionsState } from '@app/banking/core/store/transactions/transactions.reducer';
 import { CreateTransactionFormComponent } from './create-transaction-form.component';
 
-const initialState = {
-  accounts: initialAccountsState,
-  transactions: initialTransactionsState,
-};
+import { AccountsStore } from '@app/banking/core/store/accounts.store';
+import { BankAccount } from '@app/core/bank-account/bank-account.interface';
+import { signal } from '@angular/core';
+
 describe(CreateTransactionFormComponent.name, () => {
   let component: CreateTransactionFormComponent;
   let fixture: ComponentFixture<CreateTransactionFormComponent>;
 
-  let store: MockStore;
+  const accountsSig = signal<BankAccount[]>([]);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,13 +23,17 @@ describe(CreateTransactionFormComponent.name, () => {
             close: jest.fn(),
           },
         },
-        provideMockStore({ initialState }),
+        {
+          provide: AccountsStore,
+          useValue: {
+            accounts: accountsSig,
+          },
+        },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateTransactionFormComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(MockStore);
 
     // for running ngOnInit
     fixture.detectChanges();
@@ -105,23 +105,18 @@ describe(CreateTransactionFormComponent.name, () => {
   });
 
   it('WITHDRAW: should handle amount validation', async () => {
-    store.setState({
-      ...initialState,
-      accounts: {
-        ...initialAccountsState,
-        accounts: [
-          {
-            id: 1,
-            bank_name: 'Bank A',
-            account_holder_name: 'Miss Jane A Smith',
-            sort_code: '111111',
-            account_number: '11111111',
-            client_id: 1,
-            current_value: 128746.281,
-          },
-        ],
+    accountsSig.set([
+      {
+        id: 1,
+        bank_name: 'Bank A',
+        account_holder_name: 'Miss Jane A Smith',
+        sort_code: '111111',
+        account_number: '11111111',
+        client_id: 1,
+        current_value: 128746.281,
       },
-    });
+    ]);
+
     component.transactionTypeField.setValue('WITHDRAW');
     fixture.detectChanges();
 
@@ -144,23 +139,18 @@ describe(CreateTransactionFormComponent.name, () => {
   });
 
   it('TRANSFER: should handle amount validation', async () => {
-    store.setState({
-      ...initialState,
-      accounts: {
-        ...initialAccountsState,
-        accounts: [
-          {
-            id: 1,
-            bank_name: 'Bank A',
-            account_holder_name: 'Miss Jane A Smith',
-            sort_code: '111111',
-            account_number: '11111111',
-            client_id: 1,
-            current_value: 128746.281,
-          },
-        ],
+    accountsSig.set([
+      {
+        id: 1,
+        bank_name: 'Bank A',
+        account_holder_name: 'Miss Jane A Smith',
+        sort_code: '111111',
+        account_number: '11111111',
+        client_id: 1,
+        current_value: 128746.281,
       },
-    });
+    ]);
+
     component.transactionTypeField.setValue('TRANSFER');
     fixture.detectChanges();
 

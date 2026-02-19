@@ -4,6 +4,6 @@
   </button>
 
   <mat-card>
-    <app-table [transactions]="(extendedTransactions$ | async) || []"></app-table>
+    <app-table [transactions]="extendedTransactions() || []"></app-table>
   </mat-card>
 </div>

@@ -18,7 +18,7 @@
     <app-account-select-field
       formControlName="source_bank_account_id"
       label="Source account"
-    [accounts]="(accounts$ | async) ?? []"></app-account-select-field>
+      [accounts]="accounts()"></app-account-select-field>
   }
 
   <!-- TODO: prevent selecting the same account for source and target -->
@@ -27,7 +27,7 @@
     <app-account-select-field
       formControlName="target_bank_account_id"
       label="Target account"
-    [accounts]="(accounts$ | async) ?? []"></app-account-select-field>
+      [accounts]="accounts()"></app-account-select-field>
   }
 
   <!-- Amount -->

@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
+import { BankingStore } from './core/store/banking.store';
 
-import { provideBankingFeature } from '@app/banking/core/provide-banking-feature';
 export const bankingRoutes: Routes = [
   {
     path: '',
-    providers: [provideBankingFeature()],
+    providers: [BankingStore /* Accounts and Transactions store are provided in root */],
     loadComponent: () => import('./banking.component').then((m) => m.BankingComponent),
   },
 ];

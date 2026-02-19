@@ -1,5 +1,4 @@
-
-import { Component, DestroyRef, forwardRef, inject, Input, OnInit } from '@angular/core';
+import { Component, DestroyRef, forwardRef, inject, input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
@@ -33,8 +32,8 @@ export class AccountSelectFieldComponent implements OnInit, ControlValueAccessor
   private readonly destroyRef = inject(DestroyRef);
   private readonly fb = inject(FormBuilder);
 
-  @Input() accounts: BankAccount[] = [];
-  @Input() label = '';
+  accounts = input<BankAccount[]>([]);
+  label = input('');
 
   form = this.fb.group({
     account: this.fb.control<number | null>(null, Validators.required),
