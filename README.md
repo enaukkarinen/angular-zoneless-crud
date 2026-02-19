@@ -1,4 +1,4 @@
-# Angular Zoneless CRUD
+# Angular Zoneless Demo
 
 This project is a simple CRUD application designed to demonstrate the process of converting a traditional Angular application using NgRx and zone.js to a zoneless architecture utilizing Angular Signal Store.
 
