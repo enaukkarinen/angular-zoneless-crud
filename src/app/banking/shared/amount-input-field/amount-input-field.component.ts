@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, DestroyRef, Input, AfterViewInit, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -14,34 +14,42 @@ import { AmountWithinBalanceValidatorDirective } from '../amount-within-balance.
   selector: 'app-amount-input-field',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    AmountWithinBalanceValidatorDirective,
-  ],
+    AmountWithinBalanceValidatorDirective
+],
   template: `
-    <mat-form-field appearance="outline" class="full" *ngIf="showAmount">
-      <mat-label>Amount</mat-label>
-      <input
-        matInput
-        type="number"
-        [formControl]="amountControl"
-        amountWithinBalance
-        [balance$]="balance$"
-        [enabled]="enableBalanceCheck" />
-
-      <mat-error *ngIf="amountControl.hasError('insufficientFunds')">
-        Insufficient funds.
-      </mat-error>
-      <mat-error *ngIf="amountControl.hasError('required')"> Amount is required. </mat-error>
-      <mat-error *ngIf="amountControl.hasError('min')"> Amount must be greater than 0. </mat-error>
-    </mat-form-field>
-    <mat-checkbox [formControl]="withdrawFullValueControl" *ngIf="showWithdrawFullValueToggle">
-      Would you like to withdraw the full value of this account?
-    </mat-checkbox>
-  `,
+    @if (showAmount) {
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          [formControl]="amountControl"
+          amountWithinBalance
+          [balance$]="balance$"
+          [enabled]="enableBalanceCheck" />
+        @if (amountControl.hasError('insufficientFunds')) {
+          <mat-error>
+            Insufficient funds.
+          </mat-error>
+        }
+        @if (amountControl.hasError('required')) {
+          <mat-error> Amount is required. </mat-error>
+        }
+        @if (amountControl.hasError('min')) {
+          <mat-error> Amount must be greater than 0. </mat-error>
+        }
+      </mat-form-field>
+    }
+    @if (showWithdrawFullValueToggle) {
+      <mat-checkbox [formControl]="withdrawFullValueControl">
+        Would you like to withdraw the full value of this account?
+      </mat-checkbox>
+    }
+    `,
   styles: [
     `
       .full {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, DestroyRef, forwardRef, inject, Input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -20,7 +20,7 @@ import { BankAccount } from '@app/core/bank-account/bank-account.interface';
   templateUrl: './account-select-field.component.html',
   styleUrls: ['./account-select-field.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

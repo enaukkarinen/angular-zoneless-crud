@@ -5,42 +5,49 @@
   <mat-form-field appearance="outline" class="full">
     <mat-label>Transaction type</mat-label>
     <mat-select formControlName="transaction_type">
-      <mat-option *ngFor="let type of transactionTypes" [value]="type.value">
-        {{ type.label }}
-      </mat-option>
+      @for (type of transactionTypes; track type) {
+        <mat-option [value]="type.value">
+          {{ type.label }}
+        </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 
   <!-- Source account -->
-  <app-account-select-field
-    *ngIf="showSourceAccount"
-    formControlName="source_bank_account_id"
-    label="Source account"
+  @if (showSourceAccount) {
+    <app-account-select-field
+      formControlName="source_bank_account_id"
+      label="Source account"
     [accounts]="(accounts$ | async) ?? []"></app-account-select-field>
+  }
 
   <!-- TODO: prevent selecting the same account for source and target -->
   <!-- Target account -->
-  <app-account-select-field
-    *ngIf="showTargetAccount"
-    formControlName="target_bank_account_id"
-    label="Target account"
+  @if (showTargetAccount) {
+    <app-account-select-field
+      formControlName="target_bank_account_id"
+      label="Target account"
     [accounts]="(accounts$ | async) ?? []"></app-account-select-field>
+  }
 
   <!-- Amount -->
-  <app-amount-input-field
-    *ngIf="showAmount"
-    [amountControl]="amountField"
-    [withdrawFullValueControl]="withdrawFullValueField"
-    [showWithdrawFullValueToggle]="showWithdrawFullValueToggle"
-    [balance$]="balance$"
-    [enableBalanceCheck]="(validationEnabled$ | async) ?? false">
-  </app-amount-input-field>
+  @if (showAmount) {
+    <app-amount-input-field
+      [amountControl]="amountField"
+      [withdrawFullValueControl]="withdrawFullValueField"
+      [showWithdrawFullValueToggle]="showWithdrawFullValueToggle"
+      [balance$]="balance$"
+      [enableBalanceCheck]="(validationEnabled$ | async) ?? false">
+    </app-amount-input-field>
+  }
 
   <!-- Description -->
-  <mat-form-field appearance="outline" class="full" *ngIf="showDescription">
-    <mat-label>Description (optional)</mat-label>
-    <textarea matInput rows="2" formControlName="description"></textarea>
-  </mat-form-field>
+  @if (showDescription) {
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Description (optional)</mat-label>
+      <textarea matInput rows="2" formControlName="description"></textarea>
+    </mat-form-field>
+  }
 
   <div class="actions">
     <button mat-button type="button" (click)="cancel()">Cancel</button>
