@@ -26,7 +26,7 @@ export class BankingComponent implements OnInit {
   store = inject(Store);
   dialog = inject(MatDialog);
 
-  extentedTransactions$ = this.store.select(selectExtendedTransactions);
+  extendedTransactions$ = this.store.select(selectExtendedTransactions);
 
   ngOnInit() {
     this.store.dispatch(loadTransactions());

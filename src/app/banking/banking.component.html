@@ -1,13 +1,9 @@
 <div class="banking">
-  <button
-    class="banking__create-btn"
-    mat-raised-button
-    color="primary"
-    (click)="create()">
+  <button class="banking__create-btn" mat-raised-button color="primary" (click)="create()">
     Create Transaction
   </button>
 
   <mat-card>
-    <app-table [transactions]="(extentedTransactions$ | async) || []"></app-table
-  ></mat-card>
+    <app-table [transactions]="(extendedTransactions$ | async) || []"></app-table>
+  </mat-card>
 </div>

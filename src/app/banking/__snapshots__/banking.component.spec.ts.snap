@@ -3,7 +3,7 @@
 exports[`BankingComponent should render 1`] = `
 <app-banking
   dialog={[Function Object]}
-  extentedTransactions$={[Function _Store]}
+  extendedTransactions$={[Function _Store]}
   store={[Function _MockStore]}
 >
   <div
@@ -22,7 +22,7 @@ exports[`BankingComponent should render 1`] = `
       <span
         class="mdc-button__label"
       >
-         Create Transaction 
+         Create Transaction
       </span>
       <span
         class="mat-focus-indicator"
@@ -125,7 +125,7 @@ exports[`BankingComponent should render 1`] = `
                       <span
                         class="mdc-evolution-chip__text-label mat-mdc-chip-action-label"
                       >
-                         Deposit 
+                         Deposit
                         <span
                           class="mat-mdc-chip-primary-focus-indicator mat-focus-indicator"
                         />
@@ -139,7 +139,7 @@ exports[`BankingComponent should render 1`] = `
                 mat-cell=""
                 role="cell"
               >
-                 £100.00 
+                 £100.00
               </td>
               <td
                 class="mat-mdc-cell mdc-data-table__cell cdk-cell cdk-column-source mat-column-source"
@@ -167,7 +167,7 @@ exports[`BankingComponent should render 1`] = `
                 <span
                   class="description"
                 >
-                   Thomas' birthday present 
+                   Thomas' birthday present
                 </span>
               </td>
             </tr>
@@ -204,7 +204,7 @@ exports[`BankingComponent should render 1`] = `
                       <span
                         class="mdc-evolution-chip__text-label mat-mdc-chip-action-label"
                       >
-                         Transfer 
+                         Transfer
                         <span
                           class="mat-mdc-chip-primary-focus-indicator mat-focus-indicator"
                         />
@@ -218,7 +218,7 @@ exports[`BankingComponent should render 1`] = `
                 mat-cell=""
                 role="cell"
               >
-                 £12,502.00 
+                 £12,502.00
               </td>
               <td
                 class="mat-mdc-cell mdc-data-table__cell cdk-cell cdk-column-source mat-column-source"
@@ -246,7 +246,7 @@ exports[`BankingComponent should render 1`] = `
                 <span
                   class="description"
                 >
-                   Janes transfer 
+                   Janes transfer
                 </span>
               </td>
             </tr>
