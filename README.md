@@ -16,10 +16,11 @@ This project is a simple CRUD application designed to demonstrate the process of
 
 ## Project Structure
 
-- `src/app/core/` — Core business logic, interfaces, and services
+- `src/app/core/` — Core interfaces, and data services
 - `src/app/banking/` — Feature module for banking operations
+- `src/app/bankingcore/store/` — State management stores (Signal Store)
 - `src/app/shared/` — Shared components and validators
-- `src/app/core/store/` — State management stores (NgRx and Signal Store)
+
 
 ## Getting Started
 
