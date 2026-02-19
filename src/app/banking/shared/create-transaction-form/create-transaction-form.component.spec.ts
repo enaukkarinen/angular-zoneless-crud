@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -43,7 +43,7 @@ describe(CreateTransactionFormComponent.name, () => {
     expect(component).toBeTruthy();
   });
 
-  it('DEPOSIT: hides/disables source, shows/enables target and makes target required', waitForAsync(() => {
+  it('DEPOSIT: hides/disables source, shows/enables target and makes target required', async () => {
     component.transactionTypeField.setValue('DEPOSIT');
 
     fixture.detectChanges();
@@ -60,9 +60,9 @@ describe(CreateTransactionFormComponent.name, () => {
     expect(component.showAmount).toBe(true);
     expect(component.amountField.enabled).toBe(true);
     expect(component.showDescription).toBe(true);
-  }));
+  });
 
-  it('WITHDRAW: shows/enables source, hides/disables target and makes source required', waitForAsync(() => {
+  it('WITHDRAW: shows/enables source, hides/disables target and makes source required', () => {
     component.transactionTypeField.setValue('WITHDRAW');
 
     fixture.detectChanges();
@@ -79,9 +79,9 @@ describe(CreateTransactionFormComponent.name, () => {
     expect(component.showAmount).toBe(true);
     expect(component.amountField.enabled).toBe(true);
     expect(component.showDescription).toBe(true);
-  }));
+  });
 
-  it('TRANSFER: shows/enables source and target, makes both required', waitForAsync(() => {
+  it('TRANSFER: shows/enables source and target, makes both required', async () => {
     component.transactionTypeField.setValue('TRANSFER');
 
     fixture.detectChanges();
@@ -102,9 +102,9 @@ describe(CreateTransactionFormComponent.name, () => {
     expect(component.showAmount).toBe(true);
     expect(component.amountField.enabled).toBe(true);
     expect(component.showDescription).toBe(true);
-  }));
+  });
 
-  it('WITHDRAW: should handle amount validation', waitForAsync(() => {
+  it('WITHDRAW: should handle amount validation', async () => {
     store.setState({
       ...initialState,
       accounts: {
@@ -141,9 +141,9 @@ describe(CreateTransactionFormComponent.name, () => {
 
     fixture.detectChanges();
     expect(component.amountField.hasError('insufficientFunds')).toBe(false);
-  }));
+  });
 
-  it('TRANSFER: should handle amount validation', waitForAsync(() => {
+  it('TRANSFER: should handle amount validation', async () => {
     store.setState({
       ...initialState,
       accounts: {
@@ -180,9 +180,9 @@ describe(CreateTransactionFormComponent.name, () => {
 
     fixture.detectChanges();
     expect(component.amountField.hasError('insufficientFunds')).toBe(false);
-  }));
+  });
 
-  it('should reset fields when transaction type changes', waitForAsync(() => {
+  it('should reset fields when transaction type changes', async () => {
     component.transactionTypeField.setValue('DEPOSIT');
     fixture.detectChanges();
 
@@ -199,5 +199,5 @@ describe(CreateTransactionFormComponent.name, () => {
     expect(component.targetAccountField.value).toBeNull();
     expect(component.amountField.value).toBeNull();
     expect(component.descriptionField.value).toBe('');
-  }));
+  });
 });

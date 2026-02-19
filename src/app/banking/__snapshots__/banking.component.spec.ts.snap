@@ -10,7 +10,7 @@ exports[`BankingComponent should render 1`] = `
     class="banking"
   >
     <button
-      class="banking__create-btn mdc-button mdc-button--raised mat-mdc-raised-button mat-primary mat-mdc-button-base"
+      class="mdc-button mat-mdc-button-base banking__create-btn mdc-button--raised mat-mdc-raised-button mat-primary"
       color="primary"
       mat-raised-button=""
       mat-ripple-loader-class-name="mat-mdc-button-ripple"
@@ -147,7 +147,7 @@ exports[`BankingComponent should render 1`] = `
                 role="cell"
               >
                 <app-account-field>
-                  —
+                   —
                 </app-account-field>
               </td>
               <td
@@ -235,7 +235,7 @@ exports[`BankingComponent should render 1`] = `
                 role="cell"
               >
                 <app-account-field>
-                  —
+                   —
                 </app-account-field>
               </td>
               <td

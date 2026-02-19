@@ -117,7 +117,7 @@ exports[`TableComponent should render 1`] = `
           role="cell"
         >
           <app-account-field>
-            —
+             —
           </app-account-field>
         </td>
         <td

@@ -1,4 +1,4 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jest-marbles';
@@ -45,7 +45,7 @@ describe('AccountsEffects', () => {
     bankAccountService = TestBed.inject(BankAccountService);
   });
 
-  it('should load accounts successfully', waitForAsync(() => {
+  it('should load accounts successfully', async () => {
     jest.spyOn(bankAccountService, 'getBankAccounts').mockReturnValue(of(mockBankAccounts));
 
     actions = hot('--a', {
@@ -57,9 +57,9 @@ describe('AccountsEffects', () => {
     });
 
     expect(effects.loadAccounts$).toBeObservable(expected);
-  }));
+  });
 
-  it('should handle load accounts failure', waitForAsync(() => {
+  it('should handle load accounts failure', async () => {
     const error = new Error('Failed to load accounts');
     jest.spyOn(bankAccountService, 'getBankAccounts').mockReturnValue(throwError(() => error));
 
@@ -72,5 +72,5 @@ describe('AccountsEffects', () => {
     });
 
     expect(effects.loadAccounts$).toBeObservable(expected);
-  }));
+  });
 });

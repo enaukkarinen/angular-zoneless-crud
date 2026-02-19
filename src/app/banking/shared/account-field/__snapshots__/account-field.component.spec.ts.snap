@@ -12,6 +12,6 @@ exports[`AccountFieldComponent should render an empty state correctly 1`] = `
 <app-account-field
   account="undefined"
 >
-  —
+   —
 </app-account-field>
 `;
