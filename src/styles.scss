@@ -1,0 +1,20 @@
+@use './style/material';
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+* {
+  box-sizing: border-box;
+  &::before, &::after {
+    box-sizing: inherit;
+  }
+}
+
+html, body {
+  margin: 0;
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  color: #272727;
+}
