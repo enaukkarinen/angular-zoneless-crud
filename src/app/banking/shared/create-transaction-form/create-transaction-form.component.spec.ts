@@ -89,7 +89,7 @@ describe(CreateTransactionFormComponent.name, () => {
     expect(component.sourceAccountField.enabled).toBe(true);
 
     expect(component.showTargetAccount).toBe(true);
-    expect(component.targetAccountField.enabled).toBe(true);
+    expect(component.targetAccountField.enabled).toBe(false);
 
     component.sourceAccountField.setValue(null);
     component.sourceAccountField.updateValueAndValidity();
@@ -97,11 +97,34 @@ describe(CreateTransactionFormComponent.name, () => {
 
     component.targetAccountField.setValue(null);
     component.targetAccountField.updateValueAndValidity();
-    expect(component.targetAccountField.hasError('required')).toBe(true);
 
     expect(component.showAmount).toBe(true);
     expect(component.amountField.enabled).toBe(true);
     expect(component.showDescription).toBe(true);
+  });
+
+  it('TRANSFER: should enable target account field when source account is selected', async () => {
+    accountsSig.set([
+      {
+        id: 1,
+        bank_name: 'Bank A',
+        account_holder_name: 'Miss Jane A Smith',
+        sort_code: '111111',
+        account_number: '11111111',
+        client_id: 1,
+        current_value: 128746.281,
+      },
+    ]);
+
+    component.transactionTypeField.setValue('TRANSFER');
+    fixture.detectChanges();
+
+    expect(component.targetAccountField.disabled).toBe(true);
+
+    component.sourceAccountField.setValue(1);
+    fixture.detectChanges();
+
+    expect(component.targetAccountField.enabled).toBe(true);
   });
 
   it('WITHDRAW: should handle amount validation', async () => {

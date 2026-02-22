@@ -19,15 +19,18 @@
       formControlName="source_bank_account_id"
       label="Source account"
       [accounts]="accounts()"></app-account-select-field>
+
+    @if (form.get('target_bank_account_id')?.hasError('noValidTargetAccounts')) {
+      <mat-error> No valid target accounts available for the selected source account. </mat-error>
+    }
   }
 
-  <!-- TODO: prevent selecting the same account for source and target -->
   <!-- Target account -->
   @if (showTargetAccount) {
     <app-account-select-field
       formControlName="target_bank_account_id"
       label="Target account"
-      [accounts]="accounts()"></app-account-select-field>
+      [accounts]="(targetAccounts$ | async) || []"></app-account-select-field>
   }
 
   <!-- Amount -->

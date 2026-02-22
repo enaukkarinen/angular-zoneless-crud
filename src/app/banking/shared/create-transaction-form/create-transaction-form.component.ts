@@ -79,6 +79,30 @@ export class CreateTransactionFormComponent implements OnInit {
 
   accounts = this.store.accounts;
 
+  targetAccounts$ = combineLatest([
+    toObservable(this.accounts),
+    this.sourceAccountField.valueChanges.pipe(startWith(this.sourceAccountField.value)),
+  ]).pipe(
+    map(([accounts, sourceAccountId]) => {
+      if (sourceAccountId == null) return accounts;
+
+      const sourceAccount = accounts.find((a) => a.id === sourceAccountId);
+      const returnable = accounts.filter(
+        ({ id, client_id }) => id !== sourceAccountId && client_id === sourceAccount?.client_id
+      );
+
+      if (returnable.length === 0) {
+        this.targetAccountField.setErrors({
+          noValidTargetAccounts:
+            'No valid target accounts available for the selected source account.',
+        });
+      } else {
+        this.targetAccountField.setErrors(null);
+      }
+      return returnable;
+    })
+  );
+
   // Finds the right balance based on selected source account.
   balance$ = combineLatest([
     toObservable(this.accounts),
@@ -140,7 +164,7 @@ export class CreateTransactionFormComponent implements OnInit {
           this.sourceAccountField.setValidators(Validators.required);
 
           this.showTargetAccount = true;
-          this.targetAccountField.enable();
+
           this.targetAccountField.setValidators(Validators.required);
         }
       });
@@ -149,6 +173,20 @@ export class CreateTransactionFormComponent implements OnInit {
     this.validationEnabled$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.amountField.updateValueAndValidity({ onlySelf: true });
     });
+
+    this.sourceAccountField.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((sourceAccountId) => {
+        const type = this.transactionTypeField.value;
+
+        if (type !== 'TRANSFER') return;
+
+        if (sourceAccountId == null) {
+          this.targetAccountField.disable();
+        } else {
+          this.targetAccountField.enable();
+        }
+      });
   }
 
   submit() {
