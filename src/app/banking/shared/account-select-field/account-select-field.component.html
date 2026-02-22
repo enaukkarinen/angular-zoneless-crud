@@ -6,7 +6,7 @@
       @for (account of accounts(); track account.id) {
         <mat-option [value]="account.id">
           {{ account.account_holder_name }} · {{ account.bank_name }} (****{{
-          account.account_number.slice(-4)
+            account.account_number.slice(-4)
           }})
         </mat-option>
       }
