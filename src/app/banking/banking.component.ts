@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -13,6 +13,7 @@ import { BankingStore } from '@app/banking/core/store/banking.store';
   templateUrl: './banking.component.html',
   styleUrls: ['./banking.component.scss'],
   imports: [TableComponent, MatButtonModule, MatCardModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankingComponent implements OnInit {
   dialog = inject(MatDialog);

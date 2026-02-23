@@ -1,4 +1,12 @@
-import { Component, DestroyRef, forwardRef, inject, input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  forwardRef,
+  inject,
+  input,
+  OnInit,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
@@ -19,6 +27,7 @@ import { BankAccount } from '@app/core/bank-account/bank-account.interface';
   templateUrl: './account-select-field.component.html',
   styleUrls: ['./account-select-field.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   providers: [
     {

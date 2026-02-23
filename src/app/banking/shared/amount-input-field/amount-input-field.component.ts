@@ -1,5 +1,4 @@
-
-import { Component, DestroyRef, Input, AfterViewInit, inject } from '@angular/core';
+import { Component, DestroyRef, Input, AfterViewInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { combineLatest, Observable, startWith } from 'rxjs';
@@ -18,8 +17,9 @@ import { AmountWithinBalanceValidatorDirective } from '../amount-within-balance.
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    AmountWithinBalanceValidatorDirective
-],
+    AmountWithinBalanceValidatorDirective,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (showAmount) {
       <mat-form-field appearance="outline" class="full">
@@ -32,9 +32,7 @@ import { AmountWithinBalanceValidatorDirective } from '../amount-within-balance.
           [balance$]="balance$"
           [enabled]="enableBalanceCheck" />
         @if (amountControl.hasError('insufficientFunds')) {
-          <mat-error>
-            Insufficient funds.
-          </mat-error>
+          <mat-error> Insufficient funds. </mat-error>
         }
         @if (amountControl.hasError('required')) {
           <mat-error> Amount is required. </mat-error>
@@ -49,7 +47,7 @@ import { AmountWithinBalanceValidatorDirective } from '../amount-within-balance.
         Would you like to withdraw the full value of this account?
       </mat-checkbox>
     }
-    `,
+  `,
   styles: [
     `
       .full {
